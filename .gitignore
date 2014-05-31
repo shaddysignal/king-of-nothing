@@ -2,9 +2,9 @@
 *.log
 
 # sbt specific
-.cache/
-.history/
-.lib/
+**/.cache/
+**/.history/
+**/.lib/
 dist/*
 target/
 lib_managed/
@@ -15,4 +15,7 @@ project/plugins/project/
 # Scala-IDE specific
 .scala_dependencies
 .worksheet
-**/.settings/ # Thinking it should be there
+# Thinking it should be there
+**/.settings/
+# Its too
+android/lib/

@@ -19,7 +19,8 @@ object Settings {
     scalacOptions ++= Seq("-Xlint", "-Ywarn-dead-code", "-Ywarn-value-discard", "-Ywarn-numeric-widen", "-unchecked", "-deprecation", "-feature"),
     resolvers += "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots",
     libraryDependencies ++= Seq(
-      "com.badlogicgames.gdx" % "gdx" % "0.9.9"
+      "com.badlogicgames.gdx" % "gdx" % "0.9.9",
+      "com.typesafe.akka" %% "akka-actor" % "2.3.3"
     ),
     cancelable := true,
     proguardOptions <<= (baseDirectory) { (b) => Seq(
