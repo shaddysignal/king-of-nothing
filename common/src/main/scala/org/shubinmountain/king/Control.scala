@@ -8,7 +8,7 @@ trait Control {
 
     val listeners: Buffer[ActorRef]
 
-    def contains(x: Float, y: Float): Boolean
+    def checkAndAction(x: Float, y: Float): Boolean
 
 }
 

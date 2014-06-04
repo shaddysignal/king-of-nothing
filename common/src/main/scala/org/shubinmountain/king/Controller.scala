@@ -9,6 +9,8 @@ class Controller(model: Model) extends Actor {
             if (n + 1 > model.pos.length) model.pos += ((x, y))
             else model.pos(n) = (x, y)
         }
+        case Switching(state) => {  }
+        case ButtonClick(action) => action(model)
         case _ => println("nothing")
     }
 

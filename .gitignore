@@ -20,3 +20,4 @@ project/plugins/project/
 **/.settings/
 # Its too
 android/lib/
+ios/lib/

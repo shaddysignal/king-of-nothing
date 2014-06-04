@@ -11,7 +11,7 @@ class GameScreen(model: Model) extends Screen {
     private val width = Gdx.graphics.getWidth
     private val height = Gdx.graphics.getHeight
 
-    val cam = new OrthographicCamera(width, height)
+    val cam = new OrthographicCamera(width.toFloat, height.toFloat)
     cam.position.set(width / 2f, height / 2f, 0)
     cam.update
 
@@ -27,14 +27,6 @@ class GameScreen(model: Model) extends Screen {
         mainBatch.begin
 
         shapeRenderer.begin(ShapeType.Filled)
-        shapeRenderer.setColor(scala.math.random.toFloat, 1, 0, 1)
-        shapeRenderer.circle(width / 2f, height / 2f, 100)
-
-        model.foreach(e => {
-            val (x, y) = e
-            shapeRenderer.setColor(scala.math.random.toFloat, 0, 1, 1)
-            shapeRenderer.circle(x, y, 20)
-        })
         shapeRenderer.end
 
         mainBatch.end
