@@ -8,8 +8,8 @@ import com.badlogic.gdx._
 
 class GameScreen(model: Model) extends Screen {
 
-    private def width = Gdx.graphics.getWidth
-    private def height = Gdx.graphics.getHeight
+    private val width = Gdx.graphics.getWidth
+    private val height = Gdx.graphics.getHeight
 
     val cam = new OrthographicCamera(width, height)
     cam.position.set(width / 2f, height / 2f, 0)
@@ -21,7 +21,7 @@ class GameScreen(model: Model) extends Screen {
 
     def render(dt: Float) {
         Gdx.gl.glClearColor(0,0,0,1)
-        Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT)
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
         Gdx.gl.glLineWidth(1)
 
         mainBatch.begin
@@ -29,8 +29,12 @@ class GameScreen(model: Model) extends Screen {
         shapeRenderer.begin(ShapeType.Filled)
         shapeRenderer.setColor(scala.math.random.toFloat, 1, 0, 1)
         shapeRenderer.circle(width / 2f, height / 2f, 100)
-        
-        shapeRenderer.circle
+
+        model.foreach(e => {
+            val (x, y) = e
+            shapeRenderer.setColor(scala.math.random.toFloat, 0, 1, 1)
+            shapeRenderer.circle(x, y, 20)
+        })
         shapeRenderer.end
 
         mainBatch.end
@@ -49,7 +53,8 @@ class GameScreen(model: Model) extends Screen {
     def resume() {}
 
     def dispose() {
-
+        mainBatch.dispose
+        shapeRenderer.dispose
     }
 
 }

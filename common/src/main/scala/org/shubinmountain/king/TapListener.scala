@@ -1,33 +1,38 @@
 package org.shubinmountain.king
 
-import com.badlogic.gdx.input._
+import com.badlogic.gdx.{ Gdx, InputProcessor }
 import com.badlogic.gdx.math._
 
-class TapListener extends GestureDetector.GestureListener {
+import akka.actor.ActorRef
 
-    def fling(velocityX: Float, velocityY: Float, button: Int) = false
+class TapListener(controller: ActorRef) extends InputProcessor {
 
-    def longPress(x: Float, y: Float) = false
+    private def width: Float = Gdx.graphics.getWidth
+    private def height: Float = Gdx.graphics.getHeight
 
-    def pan(x: Float, y: Float, dX: Float, dY: Float) = false
+    def keyDown(keycode: Int) = false
 
-    def panStop(x: Float, y: Float, pointerN: Int, button: Int) = false
+    def keyTyped(character: Char) = false
 
-    def pinch(
-        initialPosition1: Vector2,
-        initialPosition2: Vector2,
-        position1: Vector2,
-        position2: Vector2
-    ) = false
+    def keyUp(keycode: Int) = false
 
-    def tap(x: Float, y: Float, pointerN: Int, button: Int) = {
-        
+    def mouseMoved(screenX: Int, screenY: Int) = false
+
+    def scrolled(amount: Int) = false
+
+    def touchDown(screenX: Int, screenY: Int, pointerN: Int, button: Int) = {
+        val (x, y) = (screenX * 1f, screenY * 1f)
+        controller ! Tapping(x, Gdx.graphics.getHeight - y, pointerN)
         false
     }
 
-    def touchDown(x: Float, y: Float, pointerN: Int, button: Int) = false
+    def touchDragged(screenX: Int, screenY: Int, pointerN: Int) = {
+        val (x, y) = (screenX * 1f, screenY * 1f)
+        controller ! Tapping(x, Gdx.graphics.getHeight - y, pointerN)
+        false
+    }
 
-    def zoom(initialDistance: Float, distance: Float) = false
+    def touchUp(screenX: Int, screenY: Int, pointerN: Int, button: Int) = false
 
 }
 

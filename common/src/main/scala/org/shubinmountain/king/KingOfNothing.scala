@@ -1,22 +1,25 @@
 package org.shubinmountain.king
 
-import com.badlogic.gdx.Game
-import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.{ Game, Gdx }
 
 import akka.actor.ActorSystem
 import akka.actor.Props
 
 class KingOfNothing extends Game {
 
-    override def create() {
-      val system = ActorSystem("Master System")
-      val model = system.actorOf(Props[Model], name = "model")
+    private val system = ActorSystem("master-system")
 
-      Gdx.graphics setContinuousRendering false
+    override def create() {
+      val model = new Model
+      val controller = system.actorOf(Props(classOf[Controller], model), name = "Controller")
+
+      Gdx.input.setInputProcessor(new TapListener(controller))
 
       this.setScreen(new GameScreen(model))
+    }
 
-      Gdx.graphics.requestRendering
+    override def dispose() {
+      system.shutdown
     }
 
 }
